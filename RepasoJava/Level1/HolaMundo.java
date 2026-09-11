@@ -18,7 +18,7 @@ public class HolaMundo {
         int edad = scanner.nextInt();
 
         // 3. Número con decimales (double)
-        System.out.print("¿Cuánto te gustaría cobrar de dev al mes (€)? ");
+        System.out.print("¿Cuánto te   gustaría cobrar de dev al mes (€)? ");
         double sueldoDeseado = scanner.nextDouble();
 
         // 4. Lógica básica (if/else)
