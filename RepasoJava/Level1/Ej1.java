@@ -22,5 +22,6 @@ public class Ej1 {
         for (int i = 1; i <= 10 ; i++) {
             System.out.println( numeroMultiplicar + " x " + i + " = " + (numeroMultiplicar * i));
         }
+    scanner.close();
     }
 }
