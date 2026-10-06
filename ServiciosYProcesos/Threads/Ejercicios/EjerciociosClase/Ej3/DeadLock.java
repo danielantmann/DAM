@@ -13,7 +13,8 @@ public class DeadLock {
         Runnable tarea1 = () -> {
             synchronized (recursoA) {
                 System.out.println(Thread.currentThread().getName() + " bloquea A");
-                try { Thread.sleep(100); } catch (InterruptedException ignored) {}
+                try { Thread.sleep(100); }
+                catch (InterruptedException ignored) {}
                 synchronized (recursoB) {
                     System.out.println(Thread.currentThread().getName() + " bloquea B");
                 }

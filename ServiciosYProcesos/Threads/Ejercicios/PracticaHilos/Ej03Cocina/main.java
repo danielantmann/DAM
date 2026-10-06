@@ -57,7 +57,7 @@ public class main {
         }
 
         // 2. Camareros (Hilos normales, empezamos en i = 0 hasta < numCamareros)
-        int platosPorCamarero = cantidadClientes / numCamareros; // 100 / 5 = 20 platos por camarero
+
         for (int i = 0; i < numCamareros; i++) {
             int camareroId = i + 1;
             hilosCamareros[i] = new Thread(() -> {
@@ -82,7 +82,7 @@ public class main {
         }
 
         // 3. Cocineros (Hilos normales, empezamos en i = 0 hasta < numCocineros)
-        int platosPorCocinero = cantidadClientes / numCocineros; // 100 / 6 (aproximado, repartimos)
+
         for (int i = 0; i < numCocineros; i++) {
             int cocineroId = i + 1;
             hilosCocineros[i] = new Thread(() -> {
