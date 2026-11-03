@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor de Euros a Dólares</title>
+</head>
+<body>
+
+<h1>Conversor de Moneda 💱</h1>
+
+<p>Introduce los euros en la URL añadiendo <strong>?euros=tu_cantidad</strong> (Ejemplo: <a href="/conversor?euros=100">/conversor?euros=100</a>)</p>
+
+<!-- Si se ha hecho la conversión, mostramos el resultado con th:if y th:text -->
+<div th:if="${convertido}" style="margin-top: 20px; padding: 15px; background-color: #e2f0cb; width: 300px;">
+  <p>Cantidad en Euros: <strong th:text="${euros}">0.0</strong> €</p>
+  <p>Cantidad en Dólares: <strong th:text="${dolares}">0.0</strong> $</p>
+</div>
+
+<!-- Si no hay parámetro o está vacío -->
+<div th:if="${!convertido}" style="margin-top: 20px; color: #666;">
+  <p>Esperando parámetro en la URL...</p>
+</div>
+
+</body>
+</html>

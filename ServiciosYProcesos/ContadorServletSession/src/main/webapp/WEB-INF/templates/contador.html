@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Contador de Visitas</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    .card { background-color: #f0f4f8; padding: 20px; border-radius: 8px; display: inline-block; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    h1 { color: #333; }
+    .numero { font-size: 48px; color: #0066cc; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Contador de Visitas con Sesión 🔄</h1>
+  <p>Has recargado o visitado esta página:</p>
+  <div class="numero" th:text="${visitas}">1</div>
+  <p>veces en esta sesión.</p>
+  <br>
+  <a href="/contador">Recargar página</a>
+</div>
+
+</body>
+</html>

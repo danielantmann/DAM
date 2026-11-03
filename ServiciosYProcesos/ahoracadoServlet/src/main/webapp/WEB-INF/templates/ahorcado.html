@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego del Ahorcado</title>
+</head>
+<body>
+
+<h1>Juego del Ahorcado </h1>
+
+<!-- Mensaje de VICTORIA -->
+<div th:if="${ganado}" style="background-color: lightgreen; padding: 10px;">
+  <h2 style="color: green;">🎉 ¡Enhorabuena, has ganado! La palabra era JAVA.</h2>
+</div>
+
+<!-- Mensaje de DERROTA -->
+<div th:if="${perdido}" style="background-color: lightcoral; padding: 10px;">
+  <h2 style="color: darkred;">❌ ¡Has perdido! Te has quedado sin intentos.</h2>
+</div>
+
+<!-- Estado del tablero y vidas -->
+<h2 style="letter-spacing: 5px; font-size: 40px;" th:text="${palabraVisible}">_ _ _ _</h2>
+<p>Intentos restantes: <strong th:text="${intentos}" style="color: red;">6</strong></p>
+
+<!-- Botones / Enlaces para enviar letras por la URL (ejemplo: ?letra=A) -->
+<div th:if="${!ganado and !perdido}">
+  <p>Elige una letra:</p>
+  <a href="/ahorcado?letra=J">J</a> |
+  <a href="/ahorcado?letra=A">A</a> |
+  <a href="/ahorcado?letra=V">V</a> |
+  <a href="/ahorcado?letra=P">P</a> |
+  <a href="/ahorcado?letra=R">R</a> |
+  <a href="/ahorcado?letra=O">O</a>
+</div>
+
+<br><br>
+<!-- Enlace para reiniciar la partida -->
+<p>
+  <a href="/ahorcado?reiniciar=true">Reiniciar partida</a>
+</p>
+
+</body>
+</html>
