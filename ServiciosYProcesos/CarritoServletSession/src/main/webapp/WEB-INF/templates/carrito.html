@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Carrito de la Compra</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f9f9f9; }
+    .container { background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+    h1 { color: #2c3e50; }
+    .ejemplos a { display: inline-block; margin: 5px 5px 5px 0; padding: 8px 12px; background: #3498db; color: white; text-decoration: none; border-radius: 4px; }
+    .ejemplos a:hover { background: #2980b9; }
+    ul { margin-top: 15px; }
+    li { padding: 5px 0; font-size: 18px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Mi Carrito en Sesión 🛒</h1>
+  <p>Haz clic en los productos para añadirlos a tu lista acumulativa:</p>
+
+  <div class="ejemplos">
+    <a href="/carrito?producto=Manzana">🍎 Añadir Manzana</a>
+    <a href="/carrito?producto=Leche">🥛 Añadir Leche</a>
+    <a href="/carrito?producto=Pan">🥖 Añadir Pan</a>
+    <a href="/carrito?producto=Chocolate">🍫 Añadir Chocolate</a>
+  </div>
+
+  <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
+
+  <h3>Productos en tu carrito:</h3>
+
+  <!-- Si la lista está vacía -->
+  <p th:if="${#lists.isEmpty(carrito)}" style="color: #888;">El carrito está vacío.</p>
+
+  <!-- Bucle de Thymeleaf para pintar los elementos de la lista de la sesión -->
+  <ul>
+    <li th:each="item : ${carrito}" th:text="${item}">Producto</li>
+  </ul>
+</div>
+
+</body>
+</html>
