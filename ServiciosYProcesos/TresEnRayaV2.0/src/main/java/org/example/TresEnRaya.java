@@ -126,4 +126,13 @@ public class TresEnRaya extends HttpServlet {
         // CORRECCIÓN PROFESOR: Uso de Streams obligatorio en lugar de bucle for tradicional
         return Arrays.stream(t).noneMatch(c -> c.equals("-"));
     }
+
+//    private boolean comprobarEmpate(String[] t) {
+//        for (String c : t) {
+//            if (c.equals("-")) {
+//                return false; // Si encuentra un guion, significa que aún hay huecos, NO hay empate
+//            }
+//        }
+//        return true; // Si el bucle termina y no encontró ningún guion, todo está lleno -> ¡Empate!
+//    }
 }
