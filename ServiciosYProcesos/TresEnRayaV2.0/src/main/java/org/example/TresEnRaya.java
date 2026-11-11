@@ -10,21 +10,26 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.modelo.Jugador;
 import org.example.modelo.Partida;
+import org.example.modelo.Torneo;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @WebServlet("/tres")
 public class TresEnRaya extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
+
+        // CORRECCIÓN PROFESOR: Validar que el torneo y la partida existan por si entran directo por URL
+        Torneo torneo = (Torneo) session.getAttribute("torneo");
         Partida partidaActual = (Partida) session.getAttribute("partidaActual");
 
-        if (partidaActual == null) {
-            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Inicia una partida primero en /iniciarPartida");
+        if (torneo == null || partidaActual == null) {
+            resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "No hay ningún torneo o partida activa. Inicia sesión primero.");
             return;
         }
 
@@ -118,7 +123,7 @@ public class TresEnRaya extends HttpServlet {
     }
 
     private boolean comprobarEmpate(String[] t) {
-        for (String c : t) if (c.equals("-")) return false;
-        return true;
+        // CORRECCIÓN PROFESOR: Uso de Streams obligatorio en lugar de bucle for tradicional
+        return Arrays.stream(t).noneMatch(c -> c.equals("-"));
     }
 }

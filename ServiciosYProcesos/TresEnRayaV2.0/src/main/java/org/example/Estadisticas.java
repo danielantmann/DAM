@@ -1,11 +1,11 @@
 package org.example;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.modelo.Jugador;
 import org.example.modelo.Partida;
 import org.example.modelo.Torneo;
@@ -17,15 +17,16 @@ import java.io.PrintWriter;
 public class Estadisticas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext contexto = getServletContext();
-        Torneo torneo = (Torneo) contexto.getAttribute("torneoGlobal");
+        HttpSession session = req.getSession();
+        Torneo torneo = (Torneo) session.getAttribute("torneo");
 
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.println("<html><body>");
 
+        // CORRECCIÓN PROFESOR: Validar que el torneo exista en la sesión
         if (torneo == null) {
-            out.println("<h1>No hay datos en el torneo todavía.</h1></body></html>");
+            out.println("<h1>No hay ningún torneo activo en la sesión. Inicia una partida primero.</h1></body></html>");
             out.close();
             return;
         }
@@ -34,7 +35,6 @@ public class Estadisticas extends HttpServlet {
         String idPartidaStr = req.getParameter("partida");
 
         if (idPartidaStr != null) {
-            // Opción 3: Historial de movimientos de una partida concreta
             int id = Integer.parseInt(idPartidaStr);
             Partida p = torneo.getPartidas().stream().filter(part -> part.getId() == id).findFirst().orElse(null);
             out.println("<h1>Historial de movimientos de la Partida #" + id + "</h1>");
@@ -48,7 +48,6 @@ public class Estadisticas extends HttpServlet {
                 out.println("<p>Partida no encontrada.</p>");
             }
         } else if (nombreBuscado != null) {
-            // Opción 2: Partidas de un jugador específico
             out.println("<h1>Partidas del jugador: " + nombreBuscado + "</h1><ul>");
             for (Partida p : torneo.getPartidas()) {
                 if (p.getJugador1().getNombre().equals(nombreBuscado) || p.getJugador2().getNombre().equals(nombreBuscado)) {
@@ -60,7 +59,6 @@ public class Estadisticas extends HttpServlet {
             }
             out.println("</ul>");
         } else {
-            // Opción 1: Victorias globales de cada jugador (Sin parámetros)
             out.println("<h1>Victorias de los Jugadores</h1><ul>");
             for (Jugador j : torneo.getJugadores()) {
                 out.println("<li><b>" + j.getNombre() + "</b> - Victorias: " + j.getVictorias() + " | Derrotas: " + j.getDerrotas() + " | Empates: " + j.getEmpates() + "</li>");

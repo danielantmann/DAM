@@ -1,11 +1,11 @@
 package org.example;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.example.modelo.Jugador;
 import org.example.modelo.Torneo;
 
@@ -19,15 +19,16 @@ public class FinTorneo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext contexto = getServletContext();
-        Torneo torneo = (Torneo) contexto.getAttribute("torneoGlobal");
+        HttpSession session = req.getSession();
+        Torneo torneo = (Torneo) session.getAttribute("torneo");
 
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter out = resp.getWriter();
         out.println("<html><body>");
 
+        // CORRECCIÓN PROFESOR: Comprobar que el torneo exista y tenga jugadores
         if (torneo == null || torneo.getJugadores().isEmpty()) {
-            out.println("<h1>No hay jugadores registrados en el torneo.</h1></body></html>");
+            out.println("<h1>No hay ningún torneo activo o jugadores registrados.</h1></body></html>");
             out.close();
             return;
         }
@@ -58,7 +59,6 @@ public class FinTorneo extends HttpServlet {
 
         out.println("</body></html>");
 
-        // Rotar el contador en ciclo (0 -> 1 -> 2 -> 0)
         llamadaPodio = (llamadaPodio + 1) % 3;
         out.close();
     }

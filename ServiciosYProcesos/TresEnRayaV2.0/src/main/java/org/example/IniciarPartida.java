@@ -1,6 +1,5 @@
 package org.example;
 
-import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -29,11 +28,13 @@ public class IniciarPartida extends HttpServlet {
             return;
         }
 
-        ServletContext contexto = getServletContext();
-        Torneo torneo = (Torneo) contexto.getAttribute("torneoGlobal");
+        HttpSession session = req.getSession();
+
+        // CORRECCIÓN PROFESOR: El Torneo se guarda en la SESIÓN, no en el contexto global
+        Torneo torneo = (Torneo) session.getAttribute("torneo");
         if (torneo == null) {
             torneo = new Torneo();
-            contexto.setAttribute("torneoGlobal", torneo);
+            session.setAttribute("torneo", torneo);
         }
 
         Jugador j1 = torneo.buscarJugador(n1);
@@ -48,7 +49,6 @@ public class IniciarPartida extends HttpServlet {
         Random rand = new Random();
         Jugador turnoInicial = rand.nextBoolean() ? j1 : j2;
 
-        HttpSession session = req.getSession();
         session.setAttribute("partidaActual", partidaActual);
         session.setAttribute("jugadorTurno", turnoInicial);
         session.setAttribute("tablero", new String[]{"-", "-", "-", "-", "-", "-", "-", "-", "-"});
