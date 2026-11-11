@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tres en Raya</title>
+</head>
+<body>
+
+<h1>Juego del Tres en Raya</h1>
+
+<!-- Mensaje de error si la celda está ocupada -->
+<p style="color: red; font-weight: bold;" th:if="${error != null}" th:text="${error}"></p>
+
+<!-- Mensaje de GANADOR -->
+<div th:if="${ganador != null}" style="background-color: lightgreen; padding: 10px; margin-bottom: 10px;">
+    <h2 style="color: green; margin: 0;">¡Ha ganado el jugador <span th:text="${ganador}">X</span>! 🎉</h2>
+</div>
+
+<!-- Mensaje de EMPATE -->
+<div th:if="${empate != null and empate}" style="background-color: lightyellow; padding: 10px; margin-bottom: 10px;">
+    <h2 style="color: orange; margin: 0;">¡Empate! 🤝 Tablero lleno.</h2>
+</div>
+
+<!-- Indicador de turno (solo si la partida sigue en juego) -->
+<h3 th:if="${ganador == null and (empate == null or !empate)}">
+    Turno actual: <span style="color: blue;" th:text="${turno}">X</span>
+</h3>
+
+<!-- Filas del tablero -->
+<h1 th:text="${fila1}">Contenido</h1>
+<h1 th:text="${fila2}">Contenido</h1>
+<h1 th:text="${fila3}">Contenido</h1>
+
+<!-- Enlace para reiniciar partida -->
+<p>
+    <a href="/tres?reiniciar=true">Reiniciar partida</a>
+</p>
+
+<p>Para jugar, cambia el número en la URL (ejemplo: <code>?coordenada=5</code>)</p>
+
+</body>
+</html>
