@@ -37,7 +37,6 @@ public class main {
 
         AtomicInteger platosPorTomar = new AtomicInteger(cantidadClientes);
         AtomicInteger platosPorCocinar = new AtomicInteger(cantidadClientes);
-        AtomicInteger platosPorServir = new AtomicInteger(cantidadClientes);
 
         AtomicInteger contadorClientesAtendidos = new AtomicInteger(0);
         AtomicInteger platosServidos = new AtomicInteger(0);

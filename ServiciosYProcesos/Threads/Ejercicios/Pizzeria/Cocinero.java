@@ -22,9 +22,9 @@ public class Cocinero implements Runnable{
             }
 
             // Señal de finalización
-            if (pedido.getTipo() == Pedido.TipoPedido.FIN) {
-                return;
-            }
+//            if (pedido.getTipo() == Pedido.TipoPedido.FIN) {
+//                return;
+//            }
 
             boolean hornoAdquirido = false;
 
